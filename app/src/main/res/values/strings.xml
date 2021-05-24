@@ -15,4 +15,8 @@
     <string name="lanjutkan">Lanjutkan</string>
     <string name="store_data_online">Simpan Data Online</string>
     <string name="store_data_online_desc">Simpan Data Anda di Online Database</string>
+    <string name="foto">Foto</string>
+    <string name="selamat_datang">Selamat Datang</string>
+    <string name="simpan_dan_lanjutkan">Simpan dan Lanjutkan</string>
+    <string name="lewati">Lewati</string>
 </resources>

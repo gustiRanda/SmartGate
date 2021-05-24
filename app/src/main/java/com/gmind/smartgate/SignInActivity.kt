@@ -28,10 +28,10 @@ class SignInActivity : AppCompatActivity() {
         preferences = Preferences(this)
 
         preferences.setValues("onboarding", "1")
-        if (preferences.getValues("status").equals("1")){
+        if (preferences.getValues("login").equals("1")){
             finishAffinity()
 
-            val intent = Intent(this, SignUpPhotoActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
@@ -81,11 +81,11 @@ class SignInActivity : AppCompatActivity() {
                         preferences.setValues("email", user.email.toString())
                         preferences.setValues("berhasil", user.berhasil.toString())
                         preferences.setValues("gagal", user.gagal.toString())
-                        preferences.setValues("status", "1")
+                        preferences.setValues("login", "1")
 
                         finishAffinity()
 
-                        val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this@SignInActivity, "Password Anda Salah",

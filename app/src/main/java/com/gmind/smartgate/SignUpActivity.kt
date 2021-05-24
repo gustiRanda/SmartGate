@@ -32,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-        database = FirebaseDatabase.getInstance().getReference()
+        database = FirebaseDatabase.getInstance().reference
         databaseReference = firebaseDatabase.getReference("User")
 
         preferences = Preferences(this)
@@ -106,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                     preferences.setValues("gagal", "")
                     preferences.setValues("url", "")
                     preferences.setValues("email", data.email.toString())
-                    preferences.setValues("status", "1")
+                    preferences.setValues("login", "1")
 
                     val intent = Intent(this@SignUpActivity, SignUpPhotoActivity::class.java).putExtra(EXTRA_USER, data)
                     startActivity(intent)

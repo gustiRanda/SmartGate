@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Smart Gate</string>
+    <string name="silahkan_tulis_username">Silahkan Tulis Username Anda</string>
+    <string name="silahkan_tulis_password">Silahkan Tulis Password Anda</string>
+    <string name="user_tidak_ditemukan">User Tidak Ditemukan</string>
+    <string name="password_anda_salah">Password Anda Salah</string>
+    <string name="silahkan_isi_username">Silahkan Isi Username Anda</string>
+    <string name="silahkan_isi_password">Silahkan Isi Password Anda</string>
+    <string name="silahkan_ini_nama">Silahkan Isi Nama Anda</string>
+    <string name="silahkan_isi_email">Silahkan Isi Email Anda</string>
+    <string name="silahkan_isi_nama_masjid">Silahkan Isi Nama Masjid Anda</string>
+    <string name="username_tidak_titik">Username Tidak Bisa Menggunakan .(Titik)</string>
+    <string name="user_sudah_digunakan">User Sudah Digunakan</string>
+    <string name="lewati_perkenalan">Lewati Perkenalan</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="store_data_online">Simpan Data Online</string>
+    <string name="store_data_online_desc">Simpan Data Anda di Online Database</string>
+</resources>

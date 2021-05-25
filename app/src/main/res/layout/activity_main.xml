@@ -6,31 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/hello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main Actv"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+<!--    <TextView-->
+<!--        android:id="@+id/hello"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Main Actv"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/berhasil"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/hello"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/hello"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/hello" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/gagal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/berhasil"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/berhasil"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/berhasil" />-->
+
+
+    <com.anychart.AnyChartView
+        android:id="@+id/chart"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="176dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/berhasil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/hello"
-        app:layout_constraintStart_toStartOf="@+id/hello"
-        app:layout_constraintTop_toBottomOf="@+id/hello" />
-
-    <TextView
-        android:id="@+id/gagal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/berhasil"
-        app:layout_constraintStart_toStartOf="@+id/berhasil"
-        app:layout_constraintTop_toBottomOf="@+id/berhasil" />
 
     <Button
         android:id="@+id/logout"
@@ -41,7 +52,8 @@
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart"
+        app:layout_constraintVertical_bias="0.661" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

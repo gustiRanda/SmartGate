@@ -1,20 +1,14 @@
 package com.gmind.smartgate
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity.CENTER
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.anychart.AnyChart
-import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.chart.common.listener.Event
-import com.anychart.chart.common.listener.ListenersInterface
 import com.anychart.enums.LegendLayout
 import com.anychart.enums.Orientation
-import com.anychart.graphics.vector.image.Align
 import com.gmind.smartgate.databinding.ActivityMainBinding
 import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.DatabaseReference
@@ -36,10 +30,7 @@ class MainActivity : AppCompatActivity() {
         preferences = Preferences(this)
         databaseReference = FirebaseDatabase.getInstance().getReference("User")
 
-//        binding?.hello?.setOnClickListener {
-//            val intent = Intent(this, SignInActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding?.tvUser?.text = preferences.getValues("username")
 //
 //        binding?.berhasil?.setText(preferences.getValues("berhasil"))
 //
@@ -48,13 +39,35 @@ class MainActivity : AppCompatActivity() {
 
         val pie = AnyChart.pie()
 
+//        if (preferences.getValues("berhasil")!!.isEmpty()){
+//            preferences.setValues("berhasil", "0")
+//        }
+
         val berhasil = preferences.getValues("berhasil")?.toInt()
+//        if (berhasil == null){
+//            preferences.setValues("berhasil", "0")
+//        }
         val gagal = preferences.getValues("gagal")?.toInt()
+//        if (gagal == null){
+//            preferences.setValues("gagal", "0")
+//        }
 
 
         val data: MutableList<DataEntry> = ArrayList()
         data.add(ValueDataEntry("Berhasil", berhasil))
         data.add(ValueDataEntry("Gagal", gagal))
+
+        if (berhasil == 0 && gagal == 0){
+            Toast.makeText(this, "Tidak Ada Data", Toast.LENGTH_LONG).show()
+        }
+//        if (gagal == 0)
+//        {
+//            Toast.makeText(this, "Tidak Ada Data", Toast.LENGTH_LONG).show()
+//        }
+
+//        if (data != null){
+//            Toast.makeText(this, "Data Kosong", Toast.LENGTH_LONG).show()
+//        }
 
 //        val anyChartView = findViewById<View>(R.id.chart) as AnyChartView
 //        anyChartView.setChart(pie)
@@ -71,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             .position(Orientation.BOTTOM)
             .itemsLayout(LegendLayout.HORIZONTAL)
             .align(com.anychart.enums.Align.BOTTOM)
+
 
         binding?.chart?.setChart(pie)
 //

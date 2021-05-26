@@ -89,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun checkUsername(username: String, data: User) {
-        databaseReference.child(username).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@SignUpActivity, ""+error.message, Toast.LENGTH_LONG).show()
@@ -102,8 +102,8 @@ class SignUpActivity : AppCompatActivity() {
 
                     preferences.setValues("nama", data.nama.toString())
                     preferences.setValues("user", data.username.toString())
-                    preferences.setValues("berhasil", "")
-                    preferences.setValues("gagal", "")
+                    preferences.setValues("berhasil", "0")
+                    preferences.setValues("gagal", "0")
                     preferences.setValues("url", "")
                     preferences.setValues("email", data.email.toString())
                     preferences.setValues("login", "1")

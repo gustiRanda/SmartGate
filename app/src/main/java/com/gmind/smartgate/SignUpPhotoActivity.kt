@@ -16,14 +16,10 @@ import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import java.util.*
 
-class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
+
+class SignUpPhotoActivity : AppCompatActivity(){
 
     private var activitySignUpPhotoBinding: ActivitySignUpPhotoBinding? = null
     private val binding get() = activitySignUpPhotoBinding
@@ -51,14 +47,17 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
 
         preferences = Preferences(this)
         firebaseStorage = FirebaseStorage.getInstance()
+//        firebaseDatabase.goOnline()
         storageReference = firebaseStorage.reference
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.getReference("User")
 
+        databaseReference.child("kursi").setValue("A1")
+
         user = intent.getParcelableExtra(EXTRA_USER)!!
 
-        binding?.tvHello?.text = "Selamat Datang\n" + user.nama
+        binding?.tvHello?.text = "Selamat Datang\n" + user.username
 
         binding?.ivAdd?.setOnClickListener {
             if (statusAdd){
@@ -75,31 +74,32 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
 
         binding?.btnSave?.setOnClickListener {
             if (filePath != null){
-                var progressDialog = ProgressDialog(this)
+                val progressDialog = ProgressDialog(this)
                 progressDialog.setTitle("Mengupload...")
                 progressDialog.show()
 
                 val ref = storageReference.child("images/" + UUID.randomUUID().toString())
                 ref.putFile(filePath)
-                    .addOnSuccessListener {
-                        progressDialog.dismiss()
-                        Toast.makeText(this, "Foto Berhasil Diupload", Toast.LENGTH_LONG).show()
+                        .addOnSuccessListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Foto Berhasil Diupload", Toast.LENGTH_LONG).show()
 
-                        ref.downloadUrl.addOnSuccessListener {
-                            saveToFirebase(it.toString())
+                            ref.downloadUrl.addOnSuccessListener {
+                                saveToFirebase(it.toString())
+                            }
                         }
-                    }
 
-                    .addOnFailureListener{
-                        e -> progressDialog.dismiss()
-                        Toast.makeText(this, "Gagal" + e.message, Toast.LENGTH_SHORT).show()
-                    }
+                        .addOnFailureListener{ e ->
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Gagal" + e.message, Toast.LENGTH_SHORT).show()
+                        }
 
-                    .addOnProgressListener {
-                        taskSnapshot -> val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                        progressDialog.setMessage("Mengupload Foto " + progress.toInt() + "%")
-                    }
+                        .addOnProgressListener { taskSnapshot ->
+                            val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                            progressDialog.setMessage("Mengupload Foto " + progress.toInt() + "%")
+                        }
             }
+
         }
 
 
@@ -113,17 +113,22 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
     }
 
     private fun saveToFirebase(url: String) {
-        databaseReference.child(user.username!!).addValueEventListener(object : ValueEventListener{
+        databaseReference.child(user.username!!).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user.url = url
                 databaseReference.child(user.username!!).setValue(user)
 
+//                databaseReference.child(user.username.toString()).child("berhasil").setValue("0")
+//                databaseReference.child(user.username.toString()).child("gagal").setValue("0")
+
+
                 preferences.setValues("nama", user.nama.toString())
-                preferences.setValues("user", user.username.toString())
+                preferences.setValues("username", user.username.toString())
+                preferences.setValues("masjid", user.masjid.toString())
                 preferences.setValues("berhasil", "0")
                 preferences.setValues("gagal", "0")
                 preferences.setValues("url", "")
-                preferences.setValues("email", user.email.toString())
+                preferences.setValues("nomor", user.nomor.toString())
                 preferences.setValues("login", "1")
                 preferences.setValues("url", url)
 
@@ -134,31 +139,14 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpPhotoActivity, ""+error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignUpPhotoActivity, "" + error.message, Toast.LENGTH_LONG).show()
             }
 
         })
     }
 
-    override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-        ImagePicker.with(this)
-                .cameraOnly()
-                .start()
-    }
-
-    override fun onPermissionRationaleShouldBeShown(
-            permission: PermissionRequest?,
-            token: PermissionToken?
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-        Toast.makeText(this, "Anda Tidak Bisa Menambahkan Photo Profile", Toast.LENGTH_LONG).show()
-    }
-
     override fun onBackPressed() {
-        Toast.makeText(this, "Tergesah? Klik Tombol Upload Nanti Aja", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Silahkan Upload Foto Terlebih Dahulu", Toast.LENGTH_LONG).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -167,6 +155,7 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
             statusAdd = true
 
             filePath = data?.data!!
+
             binding?.ivProfile?.let {
                 Glide.with(this)
                     .load(filePath)

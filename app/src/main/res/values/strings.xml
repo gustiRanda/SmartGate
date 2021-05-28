@@ -7,7 +7,7 @@
     <string name="silahkan_isi_username">Silahkan Isi Username Anda</string>
     <string name="silahkan_isi_password">Silahkan Isi Password Anda</string>
     <string name="silahkan_ini_nama">Silahkan Isi Nama Anda</string>
-    <string name="silahkan_isi_email">Silahkan Isi Email Anda</string>
+    <string name="silahkan_isi_nomor">Silahkan Isi Nomor HP Anda</string>
     <string name="silahkan_isi_nama_masjid">Silahkan Isi Nama Masjid Anda</string>
     <string name="username_tidak_titik">Username Tidak Bisa Menggunakan .(Titik)</string>
     <string name="user_sudah_digunakan">User Sudah Digunakan</string>
@@ -15,6 +15,10 @@
     <string name="lanjutkan">Lanjutkan</string>
     <string name="store_data_online">Simpan Data Online</string>
     <string name="store_data_online_desc">Simpan Data Anda di Online Database</string>
+    <string name="monitoring_data_online">Monitoring Data Secara Online</string>
+    <string name="monitoring_data_online_desc">Monitoring Data Secara Online Hanya Dengan Smartphone Anda</string>
+    <string name="ayo_mulai">Ayo Mulai</string>
+    <string name="ayo_mulai_desc">Ayo Mulai Sekarang</string>
     <string name="foto">Foto</string>
     <string name="selamat_datang">Selamat Datang</string>
     <string name="simpan_dan_lanjutkan">Simpan dan Lanjutkan</string>

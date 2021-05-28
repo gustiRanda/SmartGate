@@ -1,20 +1,21 @@
 package com.gmind.smartgate
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.gmind.smartgate.SignUpPhotoActivity.Companion.EXTRA_USER
 import com.gmind.smartgate.databinding.ActivitySignUpBinding
 import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.*
+
 
 class SignUpActivity : AppCompatActivity() {
 
     lateinit var username: String
     lateinit var password: String
     lateinit var name: String
-    lateinit var email: String
+    lateinit var number: String
     lateinit var mosque: String
 
     private lateinit var databaseReference: DatabaseReference
@@ -32,27 +33,31 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
-        database = FirebaseDatabase.getInstance().reference
+//        firebaseDatabase.goOnline()
+//        database = FirebaseDatabase.getInstance().reference
         databaseReference = firebaseDatabase.getReference("User")
 
         preferences = Preferences(this)
 
         binding?.btnSignUp?.setOnClickListener {
             username = binding?.etUsername?.text.toString()
-            password = binding?.etName?.text.toString()
+            password = binding?.etPassword?.text.toString()
             name = binding?.etName?.text.toString()
-            email = binding?.etEmail?.text.toString()
+            number = binding?.etNumber?.text.toString()
             mosque = binding?.etMosqueName?.text.toString()
 
             if (username == ""){
                 binding?.etUsername?.error = getString(R.string.silahkan_isi_username)
                 binding?.etUsername?.requestFocus()
-            } else if (password == ""){
+            } else if (password == "") {
                 binding?.etPassword?.error = getString(R.string.silahkan_isi_password)
                 binding?.etPassword?.requestFocus()
-            } else if (email == ""){
-                binding?.etEmail?.error = getString(R.string.silahkan_isi_email)
-                binding?.etEmail?.requestFocus()
+            } else if (name == ""){
+                binding?.etName?.error = getString(R.string.silahkan_ini_nama)
+                binding?.etName?.requestFocus()
+            } else if (number == ""){
+                binding?.etNumber?.error = getString(R.string.silahkan_isi_nomor)
+                binding?.etNumber?.requestFocus()
             } else if (mosque == ""){
                 binding?.etMosqueName?.error = getString(R.string.silahkan_isi_nama_masjid)
                 binding?.etMosqueName?.requestFocus()
@@ -62,29 +67,27 @@ class SignUpActivity : AppCompatActivity() {
                     binding?.etUsername?.error = getString(R.string.username_tidak_titik)
                     binding?.etUsername?.requestFocus()
                 } else{
-                    saveUser(username, password, name, email, mosque)
+                    saveUser(username, password, name, number, mosque)
                 }
             }
         }
     }
 
     private fun saveUser(
-        username: String,
-        password: String,
-        name: String,
-        email: String,
-        mosque: String
+            username: String,
+            password: String,
+            name: String,
+            number: String,
+            mosque: String
     ) {
         val user = User()
         user.username = username
         user.password = password
         user.nama = name
-        user.email = email
+        user.nomor = number
         user.masjid = mosque
 
-        if (user != null){
-            checkUsername(username, user)
-        }
+        checkUsername(username, user)
 
     }
 
@@ -92,20 +95,24 @@ class SignUpActivity : AppCompatActivity() {
         databaseReference.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpActivity, ""+error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignUpActivity, "" + error.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
-                if (user == null){
+                if (user == null) {
                     databaseReference.child(username).setValue(data)
 
+                    databaseReference.child(data.username.toString()).child("berhasil").setValue("0")
+                    databaseReference.child(data.username.toString()).child("gagal").setValue("0")
+
                     preferences.setValues("nama", data.nama.toString())
-                    preferences.setValues("user", data.username.toString())
+                    preferences.setValues("username", data.username.toString())
+                    preferences.setValues("masjid", data.masjid.toString())
+                    preferences.setValues("url", "")
                     preferences.setValues("berhasil", "0")
                     preferences.setValues("gagal", "0")
-                    preferences.setValues("url", "")
-                    preferences.setValues("email", data.email.toString())
+                    preferences.setValues("nomor", data.nomor.toString())
                     preferences.setValues("login", "1")
 
                     val intent = Intent(this@SignUpActivity, SignUpPhotoActivity::class.java).putExtra(EXTRA_USER, data)

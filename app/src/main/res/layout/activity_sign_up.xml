@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
-    android:background="@color/teal_200">
+    android:background="@color/light_green">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="1000dp">
 
         <TextView
             android:id="@+id/tv_buat_akun"
@@ -20,6 +17,7 @@
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="Buat Akun"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +32,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
             android:text="Username"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_buat_akun" />
@@ -44,11 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_username"
@@ -62,7 +60,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Password"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_username" />
@@ -73,14 +71,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             android:ems="10"
             android:inputType="textPassword"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password"
-            android:text="Name"/>
+            android:text="Ilham"/>
 
 
         <TextView
@@ -91,8 +89,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Nama"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_password" />
@@ -103,25 +100,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             android:text="Ilham" />
 
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Alamat Email"
-            android:textColor="@color/white"
+            android:text="Nomor HP"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_name" />
@@ -129,20 +125,19 @@
 
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email"
-            android:text="Ilham@gmail" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_number"
+            android:text="0888888888" />
 
         <TextView
             android:id="@+id/tv_mosque_name"
@@ -152,10 +147,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Nama Masjid"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_email" />
+            app:layout_constraintTop_toBottomOf="@+id/et_number" />
 
 
 
@@ -165,15 +160,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_mosque_name"
-            android:text="aaa" />
+            android:text="Masjid Nurul Ahmad" />
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -184,13 +178,11 @@
             android:layout_marginBottom="24dp"
             android:text="Buat Akun"
             android:textSize="20sp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/dark_green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

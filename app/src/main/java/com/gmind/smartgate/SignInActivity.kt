@@ -13,6 +13,7 @@ class SignInActivity : AppCompatActivity() {
     lateinit var username: String
     lateinit var password: String
 
+    private lateinit var firebaseDatabase: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
     lateinit var preferences: Preferences
 
@@ -24,7 +25,9 @@ class SignInActivity : AppCompatActivity() {
         activitySignInBinding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("User")
+        firebaseDatabase = FirebaseDatabase.getInstance()
+//        firebaseDatabase.goOnline()
+        databaseReference = firebaseDatabase.getReference("User")
         preferences = Preferences(this)
 
         preferences.setValues("onboarding", "1")
@@ -77,8 +80,9 @@ class SignInActivity : AppCompatActivity() {
                     if (user.password.equals(password)) {
                         preferences.setValues("nama", user.nama.toString())
                         preferences.setValues("username", user.username.toString())
+                        preferences.setValues("masjid", user.masjid.toString())
                         preferences.setValues("url", user.url.toString())
-                        preferences.setValues("email", user.email.toString())
+                        preferences.setValues("nomor", user.nomor.toString())
                         preferences.setValues("berhasil", user.berhasil.toString())
                         preferences.setValues("gagal", user.gagal.toString())
                         preferences.setValues("login", "1")
@@ -96,5 +100,16 @@ class SignInActivity : AppCompatActivity() {
 
 
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseDatabase.goOnline()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        firebaseDatabase.goOffline()
+        finishAffinity()
     }
 }

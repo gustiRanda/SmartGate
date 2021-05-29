@@ -38,7 +38,7 @@ class SettingActivity : AppCompatActivity() {
 
             if (preferences.getValues("login").equals("0")){
                 firebaseDatabase.goOffline()
-                startActivity(Intent(this@SettingActivity, SignInActivity::class.java))
+                startActivity(Intent(this, SignInActivity::class.java))
             }
         }
     }

@@ -97,11 +97,11 @@ class MainActivity : AppCompatActivity() {
         pie.title("Data Jamaah Masjid")
 
         pie.background()
-            .fill("#c6ffc1")
+//            .fill("#c6ffc1")
 //        #b5e550
-//            .stroke("#000000")
-//                .cornerType("round")
-//                .corners(10)
+            .stroke("#000000")
+                .cornerType("round")
+                .corners(10)
 
         pie.legend()
             .position(Orientation.BOTTOM)

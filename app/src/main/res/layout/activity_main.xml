@@ -4,55 +4,134 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_green"
     tools:context=".MainActivity">
 
-
     <TextView
-        android:id="@+id/tv_user"
+        android:id="@+id/tv_dashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="20sp"
-        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="16dp"
+        android:text="Dashboard"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
-        app:layout_constraintTop_toTopOf="@+id/iv_profile"
-        tools:text="Ilham" />
-
-    <TextView
-        android:id="@+id/tv_mosque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_user"
-        tools:text="Masjid Al Ikhlas" />
-
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/avatar"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_setting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+
+    <!--    <TextView-->
+<!--        android:id="@+id/tv_dashboard"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Dashboard"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_user"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/iv_profile"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/iv_profile"-->
+<!--        tools:text="Ilham" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_mosque"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/iv_profile"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_user"-->
+<!--        tools:text="Masjid Al Ikhlas" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_profile"-->
+<!--        android:layout_width="75dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:src="@drawable/avatar"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_dashboard" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_setting"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:src="@drawable/setting"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/iv_profile" />-->
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+        app:layout_constraintStart_toStartOf="@+id/tv_dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dashboard"
+        android:background="@drawable/border">
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/iv_profile"
+            android:layout_marginTop="8dp"
+            tools:text="Ilham" />
+
+        <TextView
+            android:id="@+id/tv_mosque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/iv_profile"
+            android:layout_below="@id/tv_user"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="Masjid Al Ikhlas" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/avatar" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/setting" />
+
+    </RelativeLayout>
 
     <com.anychart.AnyChartView
         android:id="@+id/chart"
@@ -60,18 +139,23 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="88dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/relative" />
 
     <Button
         android:id="@+id/logout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Logout"
         android:textColor="@color/black"
+        android:textSize="20sp"
         android:backgroundTint="@color/dark_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

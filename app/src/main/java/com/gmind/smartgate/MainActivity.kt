@@ -1,9 +1,15 @@
 package com.gmind.smartgate
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
@@ -28,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var preferences: Preferences
 
+    companion object {
+        const val CHANNEL_ID = "01"
+        val CHANNEL_NAME: CharSequence = "Smart Gate "
+    }
+    private var NotificationID: Int = 0
 
     private var activityMainBinding: ActivityMainBinding? = null
     private val binding get() = activityMainBinding
@@ -46,7 +57,12 @@ class MainActivity : AppCompatActivity() {
         binding?.tvUser?.text = preferences.getValues("username")
         binding?.tvMosque?.text = preferences.getValues("masjid")
 
-        binding?.ivSetting?.setOnClickListener {
+//        binding?.ivSetting?.setOnClickListener {
+//            val intent = Intent(this, SettingActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        binding?.mainToolbar?.ivSetting?.setOnClickListener {
             val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
         }
@@ -61,6 +77,36 @@ class MainActivity : AppCompatActivity() {
         checkData()
 
         setChart()
+
+        databaseReference.child(username).child("gagal").addChildEventListener(object : ChildEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                Log.d("TAG", "gagal dataChange")
+//                notification()
+//            }
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal added")
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal change")
+                notification()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                Log.d("TAG", "gagal removed")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal moved")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("TAG", "gagal canceled")
+            }
+
+        })
 
 
         binding?.logout?.setOnClickListener {
@@ -79,15 +125,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun notification() {
+        val buider = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.avatar)
+                .setContentTitle(getString(R.string.silahkan_ini_nama))
+                .setContentText(getString(R.string.ayo_mulai))
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            buider.setChannelId(CHANNEL_ID)
+
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = buider.build()
+
+        notificationManager.notify(NotificationID, notification)
+    }
+
     private fun setChart() {
         val pie = AnyChart.pie()
 
-
         val berhasil = preferences.getValues("berhasil")?.toInt()
-
         val gagal = preferences.getValues("gagal")?.toInt()
-
-
 
         val data: MutableList<DataEntry> = ArrayList()
         data.add(ValueDataEntry("Berhasil", berhasil))
@@ -97,13 +159,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Tidak Ada Data", Toast.LENGTH_LONG).show()
         }
 
-
         pie.data(data)
 
         pie.title("Data Jamaah Masjid")
 
         pie.background()
-//            .fill("#c6ffc1")
+            .fill("#f2fcff")
 //        #b5e550
                 .stroke("#000000")
                 .cornerType("round")

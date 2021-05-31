@@ -18,6 +18,6 @@ class Preferences (val context: Context){
     }
 
     fun getValues(key: String) : String? {
-        return sharedPreferences.getString(key, "")
+        return sharedPreferences.getString(key, "0")
     }
 }

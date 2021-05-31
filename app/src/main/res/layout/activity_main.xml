@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#edf6f9"
     tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_dashboard"
@@ -12,83 +20,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Dashboard"
+        android:fontFamily="@font/lobster"
+        android:text="Dashboard "
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!--    <TextView-->
-<!--        android:id="@+id/tv_dashboard"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Dashboard"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_user"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintHorizontal_bias="0"-->
-<!--        android:textColor="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/iv_profile"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/iv_profile"-->
-<!--        tools:text="Ilham" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_mosque"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:textSize="18sp"-->
-<!--        app:layout_constraintHorizontal_bias="0"-->
-<!--        android:textColor="@color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/iv_profile"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tv_user"-->
-<!--        tools:text="Masjid Al Ikhlas" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/iv_profile"-->
-<!--        android:layout_width="75dp"-->
-<!--        android:layout_height="75dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:src="@drawable/avatar"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_dashboard" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/iv_setting"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:src="@drawable/setting"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/iv_profile" />-->
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
 
     <RelativeLayout
-        android:id="@+id/relative"
+        android:id="@+id/dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="@+id/tv_dashboard"
         app:layout_constraintTop_toBottomOf="@+id/tv_dashboard"
-        android:background="@drawable/border">
+        android:background="@drawable/shape_background_white">
 
         <TextView
             android:id="@+id/tv_user"
@@ -96,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textSize="20sp"
+            android:fontFamily="@font/lobster"
             android:textColor="@color/black"
             android:layout_toEndOf="@id/iv_profile"
             android:layout_marginTop="8dp"
@@ -111,6 +60,7 @@
             android:layout_below="@id/tv_user"
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:fontFamily="@font/open_sans_light"
             tools:text="Masjid Al Ikhlas" />
 
         <ImageView
@@ -122,16 +72,81 @@
             android:layout_marginBottom="8dp"
             android:src="@drawable/avatar" />
 
-        <ImageView
-            android:id="@+id/iv_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/setting" />
+
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/dashboard2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="@+id/dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/linear_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/shape_background_red">
+
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="35.5 °C"
+                android:fontFamily="@font/open_sans"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Rata - Rata Suhu"
+                android:fontFamily="@font/open_sans_light"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/linear_average"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_background_white_2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_total_jemaah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:text="100"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="Jumlah Jemaah"
+                android:fontFamily="@font/open_sans_light"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <com.anychart.AnyChartView
         android:id="@+id/chart"
@@ -144,7 +159,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relative" />
+        app:layout_constraintTop_toBottomOf="@+id/dashboard2" />
 
     <Button
         android:id="@+id/logout"
@@ -154,6 +169,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Logout"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:backgroundTint="@color/dark_green"

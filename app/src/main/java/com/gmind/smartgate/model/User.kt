@@ -1,4 +1,4 @@
-package com.gmind.smartgate
+package com.gmind.smartgate.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

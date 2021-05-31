@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.gmind.smartgate.databinding.ActivitySignUpPhotoBinding
+import com.gmind.smartgate.model.User
 import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -52,8 +53,6 @@ class SignUpPhotoActivity : AppCompatActivity(){
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.getReference("User")
-
-        databaseReference.child("kursi").setValue("A1")
 
         user = intent.getParcelableExtra(EXTRA_USER)!!
 
@@ -113,7 +112,7 @@ class SignUpPhotoActivity : AppCompatActivity(){
     }
 
     private fun saveToFirebase(url: String) {
-        databaseReference.child(user.username!!).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(user.username!!).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 user.url = url
                 databaseReference.child(user.username!!).setValue(user)
@@ -122,14 +121,14 @@ class SignUpPhotoActivity : AppCompatActivity(){
 //                databaseReference.child(user.username.toString()).child("gagal").setValue("0")
 
 
-                preferences.setValues("nama", user.nama.toString())
-                preferences.setValues("username", user.username.toString())
-                preferences.setValues("masjid", user.masjid.toString())
-                preferences.setValues("berhasil", "0")
-                preferences.setValues("gagal", "0")
-                preferences.setValues("url", "")
-                preferences.setValues("nomor", user.nomor.toString())
-                preferences.setValues("login", "1")
+//                preferences.setValues("nama", user.nama.toString())
+//                preferences.setValues("username", user.username.toString())
+//                preferences.setValues("masjid", user.masjid.toString())
+//                preferences.setValues("berhasil", user.berhasil.toString())
+//                preferences.setValues("gagal", user.gagal.toString())
+//                preferences.setValues("url", "")
+//                preferences.setValues("nomor", user.nomor.toString())
+//                preferences.setValues("login", "1")
                 preferences.setValues("url", url)
 
                 finishAffinity()
@@ -146,7 +145,7 @@ class SignUpPhotoActivity : AppCompatActivity(){
     }
 
     override fun onBackPressed() {
-        Toast.makeText(this, "Silahkan Upload Foto Terlebih Dahulu", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Silahkan Upload Foto Terlebih Dahulu Atau Klik Lewati", Toast.LENGTH_LONG).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

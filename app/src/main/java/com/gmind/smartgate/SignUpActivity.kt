@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.gmind.smartgate.SignUpPhotoActivity.Companion.EXTRA_USER
 import com.gmind.smartgate.databinding.ActivitySignUpBinding
+import com.gmind.smartgate.model.User
 import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.*
 
@@ -17,6 +18,8 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var name: String
     lateinit var number: String
     lateinit var mosque: String
+    lateinit var berhasil: String
+    lateinit var gagal: String
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -45,6 +48,8 @@ class SignUpActivity : AppCompatActivity() {
             name = binding?.etName?.text.toString()
             number = binding?.etNumber?.text.toString()
             mosque = binding?.etMosqueName?.text.toString()
+            berhasil = binding?.etBerhasil?.text.toString()
+            gagal = binding?.etGagal?.text.toString()
 
             if (username == ""){
                 binding?.etUsername?.error = getString(R.string.silahkan_isi_username)
@@ -67,7 +72,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding?.etUsername?.error = getString(R.string.username_tidak_titik)
                     binding?.etUsername?.requestFocus()
                 } else{
-                    saveUser(username, password, name, number, mosque)
+                    saveUser(username, password, name, number, mosque, berhasil, gagal)
                 }
             }
         }
@@ -78,7 +83,9 @@ class SignUpActivity : AppCompatActivity() {
             password: String,
             name: String,
             number: String,
-            mosque: String
+            mosque: String,
+            berhasil: String,
+            gagal: String
     ) {
         val user = User()
         user.username = username
@@ -86,6 +93,8 @@ class SignUpActivity : AppCompatActivity() {
         user.nama = name
         user.nomor = number
         user.masjid = mosque
+        user.berhasil = berhasil
+        user.gagal = gagal
 
         checkUsername(username, user)
 
@@ -103,15 +112,15 @@ class SignUpActivity : AppCompatActivity() {
                 if (user == null) {
                     databaseReference.child(username).setValue(data)
 
-                    databaseReference.child(data.username.toString()).child("berhasil").setValue("0")
-                    databaseReference.child(data.username.toString()).child("gagal").setValue("0")
+//                    databaseReference.child(data.username.toString()).child("berhasil").setValue("0")
+//                    databaseReference.child(data.username.toString()).child("gagal").setValue("0")
 
                     preferences.setValues("nama", data.nama.toString())
                     preferences.setValues("username", data.username.toString())
                     preferences.setValues("masjid", data.masjid.toString())
                     preferences.setValues("url", "")
-                    preferences.setValues("berhasil", "0")
-                    preferences.setValues("gagal", "0")
+//                    preferences.setValues("berhasil", data.berhasil.toString())
+//                    preferences.setValues("gagal", data.gagal.toString())
                     preferences.setValues("nomor", data.nomor.toString())
                     preferences.setValues("login", "1")
 

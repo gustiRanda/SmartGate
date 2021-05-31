@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.gmind.smartgate.databinding.ActivitySignInBinding
+import com.gmind.smartgate.model.User
 import com.gmind.smartgate.utils.Preferences
 import com.google.firebase.database.*
 
@@ -83,8 +84,8 @@ class SignInActivity : AppCompatActivity() {
                         preferences.setValues("masjid", user.masjid.toString())
                         preferences.setValues("url", user.url.toString())
                         preferences.setValues("nomor", user.nomor.toString())
-                        preferences.setValues("berhasil", user.berhasil.toString())
-                        preferences.setValues("gagal", user.gagal.toString())
+//                        preferences.setValues("berhasil", user.berhasil.toString())
+//                        preferences.setValues("gagal", user.gagal.toString())
                         preferences.setValues("login", "1")
 
                         finishAffinity()

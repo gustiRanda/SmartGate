@@ -1,16 +1,13 @@
 package com.gmind.smartgate
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.gmind.smartgate.databinding.ActivitySettingBinding
 import com.gmind.smartgate.utils.Preferences
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class SettingActivity : AppCompatActivity() {
-
-    private lateinit var firebaseDatabase: FirebaseDatabase
 
     private lateinit var preferences: Preferences
 
@@ -24,22 +21,14 @@ class SettingActivity : AppCompatActivity() {
 
         preferences = Preferences(this)
 
+
+        binding?.ivProfile?.let {
+            Glide.with(this)
+                    .load(preferences.getValues("url"))
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(it)
+        }
         binding?.tvName?.text = preferences.getValues("nama")
         binding?.tvMosque?.text = preferences.getValues("masjid")
-
-        binding?.btnLogout?.setOnClickListener {
-            preferences.setValues("login", "0")
-            preferences.setValues("nama", "")
-            preferences.setValues("username", "")
-            preferences.setValues("url", "")
-            preferences.setValues("berhasil", "0")
-            preferences.setValues("gagal", "0")
-            preferences.setValues("nomor", "")
-
-            if (preferences.getValues("login").equals("0")){
-                firebaseDatabase.goOffline()
-                startActivity(Intent(this, SignInActivity::class.java))
-            }
-        }
     }
 }

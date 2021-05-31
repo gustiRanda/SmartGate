@@ -169,6 +169,40 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_mosque_name"
             android:text="Masjid Nurul Ahmad" />
 
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/et_berhasil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_mosque_name"
+            android:text="0" />
+
+
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/et_gagal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_berhasil"
+            android:text="0" />
+
         <Button
             android:id="@+id/btn_sign_up"
             android:layout_width="0dp"

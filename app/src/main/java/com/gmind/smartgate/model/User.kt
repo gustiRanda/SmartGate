@@ -12,5 +12,6 @@ class User (
         var nama : String ?="",
         var password : String ?="",
         var url : String ?="",
+        var suhu : String ?="",
         var username : String ?=""
 ) : Parcelable

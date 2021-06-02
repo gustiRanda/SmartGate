@@ -20,6 +20,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var mosque: String
     lateinit var berhasil: String
     lateinit var gagal: String
+    lateinit var suhu: String
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -50,6 +51,7 @@ class SignUpActivity : AppCompatActivity() {
             mosque = binding?.etMosqueName?.text.toString()
             berhasil = binding?.etBerhasil?.text.toString()
             gagal = binding?.etGagal?.text.toString()
+            suhu = binding?.etSuhu?.text.toString()
 
             if (username == ""){
                 binding?.etUsername?.error = getString(R.string.silahkan_isi_username)
@@ -72,7 +74,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding?.etUsername?.error = getString(R.string.username_tidak_titik)
                     binding?.etUsername?.requestFocus()
                 } else{
-                    saveUser(username, password, name, number, mosque, berhasil, gagal)
+                    saveUser(username, password, name, number, mosque, berhasil, gagal, suhu)
                 }
             }
         }
@@ -85,7 +87,8 @@ class SignUpActivity : AppCompatActivity() {
             number: String,
             mosque: String,
             berhasil: String,
-            gagal: String
+            gagal: String,
+            suhu: String
     ) {
         val user = User()
         user.username = username
@@ -95,6 +98,7 @@ class SignUpActivity : AppCompatActivity() {
         user.masjid = mosque
         user.berhasil = berhasil
         user.gagal = gagal
+        user.suhu = suhu
 
         checkUsername(username, user)
 

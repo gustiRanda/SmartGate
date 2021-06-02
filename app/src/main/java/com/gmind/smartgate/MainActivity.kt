@@ -57,15 +57,16 @@ class MainActivity : AppCompatActivity() {
         binding?.tvUser?.text = preferences.getValues("username")
         binding?.tvMosque?.text = preferences.getValues("masjid")
 
-//        binding?.ivSetting?.setOnClickListener {
-//            val intent = Intent(this, SettingActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding?.tvTemperature?.text = preferences.getValues("suhu") + "°C"
 
-        binding?.mainToolbar?.ivSetting?.setOnClickListener {
-            val intent = Intent(this, SettingActivity::class.java)
-            startActivity(intent)
-        }
+        val berhasil = preferences.getValues("berhasil")?.toInt()
+        val gagal = preferences.getValues("gagal")?.toInt()
+
+        val totalJemaah = gagal?.let { berhasil?.plus(it) }
+
+        binding?.tvTotalJemaah?.text = totalJemaah.toString()
+
+
 
         binding?.ivProfile?.let {
             Glide.with(this)
@@ -74,39 +75,44 @@ class MainActivity : AppCompatActivity() {
                 .into(it)
         }
 
+        binding?.mainToolbar?.ivSetting?.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
         checkData()
 
         setChart()
 
-        databaseReference.child(username).child("gagal").addChildEventListener(object : ChildEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
+//        databaseReference.child(username).child("gagal").addChildEventListener(object : ChildEventListener{
+////            override fun onDataChange(snapshot: DataSnapshot) {
+////
+////                Log.d("TAG", "gagal dataChange")
+////                notification()
+////            }
 //
-//                Log.d("TAG", "gagal dataChange")
+//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+//                Log.d("TAG", "gagal added")
+//            }
+//
+//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+//                Log.d("TAG", "gagal change")
 //                notification()
 //            }
+//
+//            override fun onChildRemoved(snapshot: DataSnapshot) {
+//                Log.d("TAG", "gagal removed")
+//            }
+//
+//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+//                Log.d("TAG", "gagal moved")
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d("TAG", "gagal canceled")
+//            }
 
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d("TAG", "gagal added")
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d("TAG", "gagal change")
-                notification()
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                Log.d("TAG", "gagal removed")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d("TAG", "gagal moved")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("TAG", "gagal canceled")
-            }
-
-        })
+//        })
 
 
         binding?.logout?.setOnClickListener {
@@ -125,25 +131,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun notification() {
-        val buider = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.avatar)
-                .setContentTitle(getString(R.string.silahkan_ini_nama))
-                .setContentText(getString(R.string.ayo_mulai))
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
-            buider.setChannelId(CHANNEL_ID)
-
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val notification = buider.build()
-
-        notificationManager.notify(NotificationID, notification)
-    }
+//    private fun notification() {
+//        val buider = NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.avatar)
+//                .setContentTitle(getString(R.string.silahkan_ini_nama))
+//                .setContentText(getString(R.string.ayo_mulai))
+//
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+//            buider.setChannelId(CHANNEL_ID)
+//
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//
+//        val notification = buider.build()
+//
+//        notificationManager.notify(NotificationID, notification)
+//    }
 
     private fun setChart() {
         val pie = AnyChart.pie()

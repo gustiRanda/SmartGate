@@ -84,6 +84,7 @@ class SignInActivity : AppCompatActivity() {
                         preferences.setValues("masjid", user.masjid.toString())
                         preferences.setValues("url", user.url.toString())
                         preferences.setValues("nomor", user.nomor.toString())
+                        preferences.setValues("suhu", user.suhu.toString())
 //                        preferences.setValues("berhasil", user.berhasil.toString())
 //                        preferences.setValues("gagal", user.gagal.toString())
                         preferences.setValues("login", "1")

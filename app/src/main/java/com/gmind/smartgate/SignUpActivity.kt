@@ -123,8 +123,9 @@ class SignUpActivity : AppCompatActivity() {
                     preferences.setValues("username", data.username.toString())
                     preferences.setValues("masjid", data.masjid.toString())
                     preferences.setValues("url", "")
-//                    preferences.setValues("berhasil", data.berhasil.toString())
-//                    preferences.setValues("gagal", data.gagal.toString())
+                    preferences.setValues("berhasil", data.berhasil.toString())
+                    preferences.setValues("gagal", data.gagal.toString())
+                    preferences.setValues("suhu", data.suhu.toString())
                     preferences.setValues("nomor", data.nomor.toString())
                     preferences.setValues("login", "1")
 

@@ -16,6 +16,7 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     lateinit var databaseReference: DatabaseReference
+    lateinit var databaseReference2: DatabaseReference
     lateinit var preferences: Preferences
 
     private var activitySignInBinding: ActivitySignInBinding? = null
@@ -29,6 +30,8 @@ class SignInActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
 //        firebaseDatabase.goOnline()
         databaseReference = firebaseDatabase.getReference("User")
+        databaseReference2 = firebaseDatabase.getReference("UserMenerobos")
+
         preferences = Preferences(this)
 
         preferences.setValues("onboarding", "1")

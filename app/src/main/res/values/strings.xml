@@ -23,4 +23,6 @@
     <string name="selamat_datang">Selamat Datang</string>
     <string name="simpan_dan_lanjutkan">Simpan dan Lanjutkan</string>
     <string name="lewati">Lewati</string>
+    <string name="peringatan">Peringatan</string>
+    <string name="ada_jamaah_menerobos_masuk_gerbang">Ada Jamaah Menerobos Masuk Gerbang</string>
 </resources>

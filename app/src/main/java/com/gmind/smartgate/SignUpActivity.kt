@@ -21,10 +21,11 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var berhasil: String
     lateinit var gagal: String
     lateinit var suhu: String
+    lateinit var trobos: String
 
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference2: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var database: DatabaseReference
 
     private lateinit var preferences: Preferences
 
@@ -41,6 +42,8 @@ class SignUpActivity : AppCompatActivity() {
 //        database = FirebaseDatabase.getInstance().reference
         databaseReference = firebaseDatabase.getReference("User")
 
+        databaseReference2 = firebaseDatabase.getReference("UserMenerobos")
+
         preferences = Preferences(this)
 
         binding?.btnSignUp?.setOnClickListener {
@@ -52,6 +55,7 @@ class SignUpActivity : AppCompatActivity() {
             berhasil = binding?.etBerhasil?.text.toString()
             gagal = binding?.etGagal?.text.toString()
             suhu = binding?.etSuhu?.text.toString()
+            trobos = binding?.etTrobos?.text.toString()
 
             if (username == ""){
                 binding?.etUsername?.error = getString(R.string.silahkan_isi_username)
@@ -74,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding?.etUsername?.error = getString(R.string.username_tidak_titik)
                     binding?.etUsername?.requestFocus()
                 } else{
-                    saveUser(username, password, name, number, mosque, berhasil, gagal, suhu)
+                    saveUser(username, password, name, number, mosque, berhasil, gagal, suhu, trobos)
                 }
             }
         }
@@ -88,7 +92,8 @@ class SignUpActivity : AppCompatActivity() {
             mosque: String,
             berhasil: String,
             gagal: String,
-            suhu: String
+            suhu: String,
+            trobos: String
     ) {
         val user = User()
         user.username = username
@@ -99,6 +104,7 @@ class SignUpActivity : AppCompatActivity() {
         user.berhasil = berhasil
         user.gagal = gagal
         user.suhu = suhu
+        user.trobos = trobos
 
         checkUsername(username, user)
 
@@ -114,10 +120,13 @@ class SignUpActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
                 if (user == null) {
+
+                    //jemaah masuk & ditolak
                     databaseReference.child(username).setValue(data)
 
-//                    databaseReference.child(data.username.toString()).child("berhasil").setValue("0")
-//                    databaseReference.child(data.username.toString()).child("gagal").setValue("0")
+                    //jemaah menerobos masuk
+                    databaseReference2.child(username).setValue(data)
+
 
                     preferences.setValues("nama", data.nama.toString())
                     preferences.setValues("username", data.username.toString())
@@ -126,6 +135,7 @@ class SignUpActivity : AppCompatActivity() {
                     preferences.setValues("berhasil", data.berhasil.toString())
                     preferences.setValues("gagal", data.gagal.toString())
                     preferences.setValues("suhu", data.suhu.toString())
+                    preferences.setValues("trobos", data.trobos.toString())
                     preferences.setValues("nomor", data.nomor.toString())
                     preferences.setValues("login", "1")
 

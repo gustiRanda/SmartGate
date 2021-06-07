@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference2: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
 
     private lateinit var preferences: Preferences
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
 //        firebaseDatabase.goOnline()
         databaseReference = firebaseDatabase.getReference("User")
+        databaseReference2 = firebaseDatabase.getReference("UserMenerobos")
 
         preferences = Preferences(this)
 
@@ -84,35 +87,35 @@ class MainActivity : AppCompatActivity() {
 
         setChart()
 
-//        databaseReference.child(username).child("gagal").addChildEventListener(object : ChildEventListener{
-////            override fun onDataChange(snapshot: DataSnapshot) {
-////
-////                Log.d("TAG", "gagal dataChange")
-////                notification()
-////            }
+        databaseReference2.child(username).addChildEventListener(object : ChildEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
 //
-//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-//                Log.d("TAG", "gagal added")
-//            }
-//
-//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                Log.d("TAG", "gagal change")
+//                Log.d("TAG", "menerobos dataChange")
 //                notification()
 //            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//                Log.d("TAG", "gagal removed")
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//                Log.d("TAG", "gagal moved")
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.d("TAG", "gagal canceled")
-//            }
 
-//        })
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal added")
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal change")
+                notification()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                Log.d("TAG", "gagal removed")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("TAG", "gagal moved")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("TAG", "gagal canceled")
+            }
+
+        })
 
 
         binding?.logout?.setOnClickListener {
@@ -131,25 +134,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun notification() {
-//        val buider = NotificationCompat.Builder(this, CHANNEL_ID)
-//                .setSmallIcon(R.drawable.avatar)
-//                .setContentTitle(getString(R.string.silahkan_ini_nama))
-//                .setContentText(getString(R.string.ayo_mulai))
-//
-//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
-//            buider.setChannelId(CHANNEL_ID)
-//
-//            notificationManager.createNotificationChannel(channel)
-//        }
-//
-//        val notification = buider.build()
-//
-//        notificationManager.notify(NotificationID, notification)
-//    }
+    private fun notification() {
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val buider = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_warning)
+                .setContentTitle(getString(R.string.peringatan))
+                .setContentText(getString(R.string.ada_jamaah_menerobos_masuk_gerbang))
+                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                .setSound(alarmSound)
+
+        val notificationManagerCompat = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            buider.setChannelId(CHANNEL_ID)
+
+            channel.enableVibration(true)
+            channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+
+            notificationManagerCompat.createNotificationChannel(channel)
+        }
+
+        val notification = buider.build()
+
+        notificationManagerCompat.notify(NotificationID, notification)
+    }
 
     private fun setChart() {
         val pie = AnyChart.pie()

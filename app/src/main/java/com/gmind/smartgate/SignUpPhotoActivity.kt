@@ -33,6 +33,7 @@ class SignUpPhotoActivity : AppCompatActivity(){
     lateinit var preferences: Preferences
 
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var databaseReference2: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
 
     lateinit var user: User
@@ -53,6 +54,7 @@ class SignUpPhotoActivity : AppCompatActivity(){
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.getReference("User")
+        databaseReference2 = firebaseDatabase.getReference("UserMenerobos")
 
         user = intent.getParcelableExtra(EXTRA_USER)!!
 
@@ -116,6 +118,7 @@ class SignUpPhotoActivity : AppCompatActivity(){
             override fun onDataChange(snapshot: DataSnapshot) {
                 user.url = url
                 databaseReference.child(user.username!!).setValue(user)
+                databaseReference2.child(user.username!!).setValue(user)
 
 //                databaseReference.child(user.username.toString()).child("berhasil").setValue("0")
 //                databaseReference.child(user.username.toString()).child("gagal").setValue("0")

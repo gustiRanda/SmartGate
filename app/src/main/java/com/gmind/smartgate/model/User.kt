@@ -13,5 +13,6 @@ class User (
         var password : String ?="",
         var url : String ?="",
         var suhu : String ?="",
-        var username : String ?=""
+        var username : String ?="",
+        var trobos : String ?=""
 ) : Parcelable

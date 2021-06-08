@@ -11,7 +11,7 @@ Display data from Firebase Realtime Database in pie chart using AnyChart library
 1. Connect your app to Firebase Realtime Database
 2. Implement AnyChart library
 3. Adding the AnyChart into your activity/fragment
-4. Collect your data in Firebase Realtime Database and input into the AnyChart
+4. Collect your data from Firebase Realtime Database and input into the AnyChart
 
 ## AnyChart library
 1. https://www.anychart.com/technical-integrations/samples/android-charts/

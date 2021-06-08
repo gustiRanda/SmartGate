@@ -1,6 +1,6 @@
 # SmartGate
 
-And android app for capstone project in Bangkit 2021 programs
+An android app for capstone project in Bangkit 2021 programs
 
 
 ## How the app works
